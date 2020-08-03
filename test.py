@@ -13,7 +13,7 @@ class TestFlatBush(unittest.TestCase):
         for x in range(dim):
             for y in range(dim):
                 boxes.append(Box(index, x + 0.1, y + 0.1, x + 0.9, y + 0.9))  # Keep our own copy of the box for brute force validation
-                checkIndex = f.add((x + 0.1, y + 0.1, x + 0.9, y + 0.9))
+                checkIndex = f.add(x + 0.1, y + 0.1, x + 0.9, y + 0.9)
                 assert checkIndex == index
                 index += 1
         f.finish()
@@ -46,7 +46,7 @@ class TestFlatBush(unittest.TestCase):
         start = time.perf_counter()
         for x in range(dim):
             for y in range(dim):
-                f.add((x + 0.1, y + 0.1, x + 0.9, y + 0.9))
+                f.add(x + 0.1, y + 0.1, x + 0.9, y + 0.9)
         f.finish()
         print(f"Time to insert {dim * dim} elements: {1000 * (time.perf_counter() - start)} milliseconds")
 

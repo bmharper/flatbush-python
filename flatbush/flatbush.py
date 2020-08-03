@@ -31,13 +31,13 @@ class FlatBush:
     def size(self) -> int:
         return self.num_items
 
-    def add(self, rect: Tuple(float, float, float, float)) -> int:
+    def add(self, min_x: float, min_y: float, max_x: float, max_y: float) -> int:
         index = len(self.boxes)
-        self.boxes.append(Box(index, rect[0], rect[1], rect[2], rect[3]))
-        self.bounds.min_x = min(self.bounds.min_x, rect[0])
-        self.bounds.min_y = min(self.bounds.min_y, rect[1])
-        self.bounds.max_x = max(self.bounds.max_x, rect[2])
-        self.bounds.max_y = max(self.bounds.max_y, rect[3])
+        self.boxes.append(Box(index, min_x, min_y, max_x, max_y))
+        self.bounds.min_x = min(self.bounds.min_x, min_x)
+        self.bounds.min_y = min(self.bounds.min_y, min_y)
+        self.bounds.max_x = max(self.bounds.max_x, max_x)
+        self.bounds.max_y = max(self.bounds.max_y, max_y)
         return index
 
     def finish(self):
@@ -100,7 +100,7 @@ class FlatBush:
                 # add the new node to the tree data
                 self.boxes.append(nodeBox)
 
-    def search(self, minX: float, minY: float, maxX: float, maxY: float) -> List[int]:
+    def search(self, min_x: float, min_y: float, max_x: float, max_y: float) -> List[int]:
         if len(self.level_bounds) == 0:
             # Remember, you must call finish() before you can search
             return []
@@ -123,7 +123,7 @@ class FlatBush:
             # search through child nodes
             for pos in range(nodeIndex, end):
                 # check if node bbox intersects with query bbox
-                if maxX < self.boxes[pos].min_x or maxY < self.boxes[pos].min_y or minX > self.boxes[pos].max_x or minY > self.boxes[pos].max_y:
+                if max_x < self.boxes[pos].min_x or max_y < self.boxes[pos].min_y or min_x > self.boxes[pos].max_x or min_y > self.boxes[pos].max_y:
                     continue
                 if nodeIndex < self.num_items:
                     # leaf item

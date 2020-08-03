@@ -8,12 +8,13 @@ Example:
 ```python
 from flatbush import FlatBush
 fb = FlatBush()
-fb.add((30, 4, 32, 5)) # x1,y1,x2,y2
-fb.add((10, 60, 11, 63))
+# add two boxes
+fb.add(30, 4, 32, 5) # x1,y1,x2,y2
+fb.add(10, 60, 11, 63)
 fb.finish();
 
 # query
-results = fb.search((minx, miny, maxx, maxy));
+results = fb.search(minx, miny, maxx, maxy);
 # results are an array of indices. The index starts at zero,
 # and is the order in which you inserted elements into the tree.
 ```
